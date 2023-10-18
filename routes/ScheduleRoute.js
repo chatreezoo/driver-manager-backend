@@ -122,8 +122,8 @@ router.get("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  const surname = req.body.surname;
-  const reason = req.body.reason;
+  const surname = req.params.surname;
+  const reason = req.params.reason;
   const sql = `DELETE FROM schedule WHERE id=?`;
   con.query(sql, [req.params.id], function(err, result) {
     if (err) {
