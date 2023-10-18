@@ -17,7 +17,7 @@ con.connect(function(err) {
 });
 
 router.get("/home", (req, res) => {
-  res.send("holo word");
+  res.send("holo 1");
 });
 
 router.get("/", (req, res) => {
@@ -124,7 +124,6 @@ router.get("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   const surname = req.body.surname;
   const reason = req.body.reason;
-  res.send(surname);
   const sql = `DELETE FROM schedule WHERE id=?`;
   con.query(sql, [req.params.id], function(err, result) {
     if (err) {
@@ -133,8 +132,8 @@ router.delete("/:id", (req, res) => {
       return;
     }
     res.send(result);
+    sendRejectNoti(surname, reason);
   });
-  // sendRejectNoti(surname, reason);
 });
 
 function sendnotification(name, department, type, approve) {
@@ -180,7 +179,7 @@ function sendRejectNoti(name, reason) {
       method: "POST",
       uri: "https://notify-api.line.me/api/notify",
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        // 'Content-Type': 'application/x-www-form-urlencoded'
       },
       auth: {
         bearer: token,
