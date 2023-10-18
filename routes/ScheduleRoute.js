@@ -122,8 +122,9 @@ router.get("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  const surname = req.params.surname;
-  const reason = req.params.reason;
+  const surname = req.body.surname;
+  const reason = req.body.reason;
+  res.send(surname);
   const sql = `DELETE FROM schedule WHERE id=?`;
   con.query(sql, [req.params.id], function(err, result) {
     if (err) {
@@ -132,8 +133,8 @@ router.delete("/:id", (req, res) => {
       return;
     }
     res.send(result);
-    sendRejectNoti(surname, reason);
   });
+  sendRejectNoti(surname, reason);
 });
 
 function sendnotification(name, department, type, approve) {
