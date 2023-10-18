@@ -134,7 +134,7 @@ router.delete("/:id", (req, res) => {
     }
     res.send(result);
   });
-  sendRejectNoti(surname, reason);
+  // sendRejectNoti(surname, reason);
 });
 
 function sendnotification(name, department, type, approve) {
