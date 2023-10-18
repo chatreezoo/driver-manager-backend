@@ -180,7 +180,7 @@ function sendRejectNoti(name, reason) {
       method: "POST",
       uri: "https://notify-api.line.me/api/notify",
       headers: {
-        // 'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
       auth: {
         bearer: token,
