@@ -3,59 +3,36 @@ const router = express.Router();
 const scheduleModel = require("../model/Schedule");
 var request = require("request");
 var mysql = require("mysql");
-const { error } = require("console");
 
 var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "driver",
+  host: "sql12.freesqldatabase.com",
+  user: "sql12654314",
+  password: "BRCKfeWLEp",
+  database: "sql12654314",
 });
 
-// con.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-// });
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
 
 router.get("/home", (req, res) => {
-res.send("holo word");
+  res.send("holo word");
 });
 
 router.get("/", (req, res) => {
-  const sql = "SELECT * FROM schedule;";
+  const sql = "SELECT * FROM schedule";
 
   // Use the connection pool to handle database queries
-  con.query(sql, function(err, result, fields) {
+  con.query(sql, function(err, result) {
     if (err) {
       console.log(err);
       res.send(err);
       return;
     }
     res.send(result);
-    // res.json(result);
   });
 });
-// router.post('/', (req, res) => {
-//   const schedule = new scheduleModel({
-//     startDate: req.body.startDate,
-//     surname: req.body.surname,
-//     department: req.body.department,
-//     objective: req.body.objective,
-//     type: req.body.type,
-//     time: req.body.time,
-//     place: req.body.place,
-//     endTime: req.body.endTime,
-//     startTime: req.body.startTime,
-//     endDate: req.body.endDate,
-//     status: 'รอดำเนินการ',
-//     approve: null
-//   })
-
-//   schedule
-//     .save()
-//     .then(() => res.json('Save Succesfuly!'))
-//     .catch(err => res.status(400).json(`error:${err}`))
-// })
 
 router.post("/", (req, res) => {
   const schedule = new scheduleModel({
