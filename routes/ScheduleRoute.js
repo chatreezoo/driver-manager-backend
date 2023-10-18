@@ -112,55 +112,6 @@ router.put("/:id", (req, res) => {
     res.send(result);
     sendnotification(surname, department, type, approve);
   });
-
-  // con.connect(function(err) {
-  //   if (err) {
-  //     console.log(err);
-  //     res.send(err);
-  //     return;
-  //   }
-  //   console.log(sql)
-  //   con.query(
-  //     sql,
-  //     [
-
-  //     ],
-  //     function(err, result) {
-  //       if (err) {
-  //         console.log(err);
-  //         res.send(err);
-  //         return;
-  //       }
-  //       res.send(result);
-  //     }
-  //   // con.query(sql, function(err, result) {
-  //   //   if (err) {
-  //   //     console.log(err);
-  //   //     res.send(err);
-  //   //     return;
-  //   //   }
-  //   //   sendnotification(surname, department, type, approve);
-  //   // });
-  // });
-  // scheduleModel
-  //   .findById(req.params.id)
-  //   .then((data) => {
-  //     (data.status = req.body.status), (data.approve = req.body.approve);
-
-  //     data
-  //       .save()
-  //       .then(
-  //         sendnotification(
-  //           data.surname,
-  //           data.department,
-  //           data.type,
-  //           data.approve
-  //         )
-  //       )
-  //       .then(() => res.json("Succesfuly!"))
-  //       .catch((err) => res.status(400).json(`error:${err}`));
-  //   })
-  //   .catch((err) => res.status(400).json(`error:${err}`));
 });
 
 router.get("/:id", (req, res) => {
@@ -172,10 +123,7 @@ router.get("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const surname = req.body.surname;
-  const department = req.body.department;
-  const type = req.body.type;
-  const approve = req.body.approve;
-  const status = req.body.status;
+  const reason = req.body.reason;
   const sql = `DELETE FROM schedule WHERE id=?`;
   con.query(sql, [req.params.id], function(err, result) {
     if (err) {
@@ -184,6 +132,7 @@ router.delete("/:id", (req, res) => {
       return;
     }
     res.send(result);
+    sendRejectNoti(surname, reason);
   });
 });
 
@@ -208,7 +157,7 @@ function sendnotification(name, department, type, approve) {
         message: message,
       },
     },
-    (err, httpResponse) => {
+    (err) => {
       if (err) {
         console.log(err);
       } else {
@@ -220,7 +169,7 @@ function sendnotification(name, department, type, approve) {
 
 function sendRejectNoti(name, reason) {
   var sendData = `ชื่อผู้จอง : ${name}\n คำขอไม่ได้รับการอนุมัติเนื่องจาก : ${reason}`;
-  var token = "rZg0KIwbrn3aaOGzEZSN6paRfXL2FpJXMOe6Ad4qG2a";
+  var token = "YQPZOvgos8jdY7rdppYndNUtdoSLXy1w7vNtWSMXj1d";
   var message = sendData;
 
   console.log({ message });
