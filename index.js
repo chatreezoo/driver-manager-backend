@@ -19,23 +19,13 @@ next();
 // Middleware
 app.use(express.json());
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  // origin: 'http://localhost:3000',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
 app.use(cors(corsOptions));
 
-app.get('/home', (req, res) => {
-  res.status(200).json('Welcome, your app is working well');
-})
-
-
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
-
-// Export the Express API
-module.exports = app
+// Export the Express 
 // ตั้งค่าฐานข้อมูล
 
 
@@ -46,10 +36,10 @@ var con = mysql.createConnection({
   database: "driver"
 });
 
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-});
+// con.connect(function(err) {
+//   if (err) throw err;
+//   console.log("Connected!");
+// });
 // const uri = process.env.ATLAS_URI;
 
 

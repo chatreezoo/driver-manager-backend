@@ -12,9 +12,13 @@ var con = mysql.createConnection({
   database: "driver",
 });
 
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
+// con.connect(function(err) {
+//   if (err) throw err;
+//   console.log("Connected!");
+// });
+
+router.get("/home", (req, res) => {
+res.send("holo word");
 });
 
 router.get("/", (req, res) => {
@@ -122,20 +126,15 @@ router.put("/:id", (req, res) => {
   const approve = req.body.approve;
   const status = req.body.status;
   const sql = `UPDATE schedule SET approve = ?, status = ? WHERE id =?`;
-  con.query(
-    sql,
-    [
-      approve,status,req.params.id
-    ],
-    function(err, result) {
-      if (err) {
-        console.log(err);
-        res.send(err);
-        return;
-      }
-      res.send(result);
-      sendnotification(surname, department, type, approve);
-    })
+  con.query(sql, [approve, status, req.params.id], function(err, result) {
+    if (err) {
+      console.log(err);
+      res.send(err);
+      return;
+    }
+    res.send(result);
+    sendnotification(surname, department, type, approve);
+  });
 
   // con.connect(function(err) {
   //   if (err) {
@@ -147,7 +146,7 @@ router.put("/:id", (req, res) => {
   //   con.query(
   //     sql,
   //     [
-        
+
   //     ],
   //     function(err, result) {
   //       if (err) {
@@ -201,19 +200,14 @@ router.delete("/:id", (req, res) => {
   const approve = req.body.approve;
   const status = req.body.status;
   const sql = `DELETE FROM schedule WHERE id=?`;
-  con.query(
-    sql,
-    [
-    req.params.id
-    ],
-    function(err, result) {
-      if (err) {
-        console.log(err);
-        res.send(err);
-        return;
-      }
-      res.send(result);
-    })
+  con.query(sql, [req.params.id], function(err, result) {
+    if (err) {
+      console.log(err);
+      res.send(err);
+      return;
+    }
+    res.send(result);
+  });
 });
 
 function sendnotification(name, department, type, approve) {
